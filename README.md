@@ -1,54 +1,27 @@
 # 浅听音乐格式转换器 v3.0.0
 
-一个支持多种加密音频格式转换的桌面应用程序，采用模块化架构设计。
+一个专注于“加密音乐文件格式转换”的桌面应用。支持 KGM、NCM、QMC/OGG、WAV 等格式，转换到 MP3/FLAC，适合批量与单文件场景。界面简洁，操作直观，转换过程可视化并具备完善的错误处理与日志记录。
 
-## 🚀 主要特性
+## ⚡ 快速启动（Windows PowerShell）
 
-- **模块化架构**: 采用现代化的模块化设计，易于维护和扩展
-- **多格式支持**: 支持 KGM、NCM、QMC/OGG、WAV 等格式转换
-- **工厂模式**: 使用工厂模式管理转换器，动态加载和扩展
-- **配置管理**: 完整的配置管理系统，支持个性化设置
-- **批量转换**: 支持单文件和批量文件转换
-- **现代界面**: 基于 PyQt6 的现代化用户界面
-- **进度显示**: 实时显示转换进度和状态
-- **错误处理**: 完善的错误处理和日志记录
+> 以下命令为 PowerShell 语法，复制到终端即可执行。
 
-## 📁 项目结构
+```powershell
+# 1) 创建并激活虚拟环境（可选，但推荐）
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
 
+# 2) 安装依赖
+pip install -r requirements.txt
+
+# 3) 启动程序
+python .\main.py
 ```
-kugou-wangyi/
-├── core/                    # 核心模块
-│   ├── __init__.py
-│   ├── base.py             # 基础抽象类和接口
-│   ├── factory.py          # 转换器工厂
-│   ├── exceptions.py       # 自定义异常
-│   ├── registry.py         # 转换器注册
-│   └── utils.py            # 工具函数
-├── converters/             # 转换器模块
-│   ├── __init__.py
-│   ├── ncm_converter.py    # NCM格式转换器
-│   ├── kgm_converter.py    # KGM格式转换器
-│   ├── ogg_converter.py    # OGG/QMC格式转换器
-│   ├── wav_converter.py    # WAV格式转换器
-│   └── （已移除）
-├── gui/                    # 图形界面模块
-│   ├── __init__.py
-│   ├── main_window.py      # 主窗口
-│   ├── workers.py          # 工作线程
-│   └── dialogs.py          # 对话框
-├── config/                 # 配置模块
-│   ├── __init__.py
-│   └── settings.py         # 配置管理
-├── utils/                  # 工具模块
-│   ├── __init__.py
-│   ├── audio_utils.py      # 音频工具
-│   └── file_utils.py       # 文件工具
-├── assets/                 # 资源文件
-├── logs/                   # 日志目录
-├── input/                  # 测试输入文件
-├── output/                 # 输出目录
-└── main.py                 # 主程序入口
-```
+
+说明：
+- 首次启动会自动创建默认配置与日志目录。
+- 在主界面中选择“单文件转换”或“批量转换”，导入待转换文件并开始转换。
+- 点击工具栏“关于”可查看许可证与仓库链接。
 
 ## 🛠 技术栈
 
@@ -68,10 +41,10 @@ kugou-wangyi/
 
 ### 安装依赖
 
-```bash
+```powershell
 # 激活虚拟环境（如果使用）
-# Windows
-myenv\Scripts\activate
+# 推荐使用 .venv
+.\.venv\Scripts\Activate.ps1
 
 # 安装依赖
 pip install -r requirements.txt
@@ -79,8 +52,8 @@ pip install -r requirements.txt
 
 ### 运行程序
 
-```bash
-python main.py
+```powershell
+python .\main.py
 ```
 
 ## 🎯 支持格式
