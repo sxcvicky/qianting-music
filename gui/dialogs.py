@@ -197,7 +197,7 @@ class AboutDialog(QDialog):
             QPushButton:pressed {
                 background-color: #0D47A1;
             }
-        ")
+        """)
 
     def _open_license(self):
         """打开项目根目录的 LICENSE 文件（中文说明）"""
