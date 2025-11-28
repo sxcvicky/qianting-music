@@ -9,8 +9,8 @@ from PyQt6.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout, QLabel,
                             QPushButton, QScrollArea, QWidget, QTabWidget,
                             QFormLayout, QLineEdit, QComboBox, QCheckBox,
                             QSpinBox, QGroupBox, QMessageBox, QFileDialog)
-from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QFont
+from PyQt6.QtCore import Qt, QUrl
+from PyQt6.QtGui import QFont, QDesktopServices
 
 # 添加项目根目录到路径
 PROJECT_ROOT = Path(__file__).parent.parent
@@ -92,7 +92,20 @@ class AboutDialog(QDialog):
         """)
         features.setWordWrap(True)
         layout.addWidget(features)
-        
+
+        # 许可证信息（MIT）
+        # 中文说明：明确项目采用 MIT 许可证，并提示用户可查看完整文本
+        license_info = QLabel(
+            """
+<h3>许可证：</h3>
+本项目采用 <b>MIT License</b> 开源许可证。<br>
+该许可证允许自由使用、复制、修改和分发，但需保留版权与许可声明。<br>
+完整文本请点击下方按钮查看。
+            """
+        )
+        license_info.setWordWrap(True)
+        layout.addWidget(license_info)
+
         # 免责声明
         disclaimer = QLabel("""
 <h3 style="color: #FF5252;">免责声明：</h3>
@@ -117,20 +130,32 @@ class AboutDialog(QDialog):
         """)
         contact.setWordWrap(True)
         layout.addWidget(contact)
-        
-        # 确定按钮
+
+        # 底部按钮区：查看许可证 / 访问 GitHub / 确定
         button_container = QWidget()
         btn_layout = QHBoxLayout(button_container)
         btn_layout.setContentsMargins(0, 15, 0, 0)
-        
+
+        # 中文说明：打开项目根目录的 LICENSE 文件
+        license_btn = QPushButton("查看许可证")
+        license_btn.setFixedSize(110, 35)
+        license_btn.clicked.connect(self._open_license)
+
+        # 中文说明：打开项目 GitHub 仓库页面
+        github_btn = QPushButton("访问 GitHub 仓库")
+        github_btn.setFixedSize(140, 35)
+        github_btn.clicked.connect(self._open_github)
+
         ok_button = QPushButton("确定")
         ok_button.setFixedSize(100, 35)
         ok_button.clicked.connect(self.accept)
-        
+
         btn_layout.addStretch()
+        btn_layout.addWidget(license_btn)
+        btn_layout.addWidget(github_btn)
         btn_layout.addWidget(ok_button)
         btn_layout.addStretch()
-        
+
         main_layout.addWidget(button_container)
     
     def _apply_styles(self):
@@ -172,7 +197,20 @@ class AboutDialog(QDialog):
             QPushButton:pressed {
                 background-color: #0D47A1;
             }
-        """)
+        ")
+
+    def _open_license(self):
+        """打开项目根目录的 LICENSE 文件（中文说明）"""
+        license_path = PROJECT_ROOT / "LICENSE"
+        if license_path.exists():
+            QDesktopServices.openUrl(QUrl.fromLocalFile(str(license_path)))
+        else:
+            QMessageBox.warning(self, "未找到许可证文件", "在项目根目录未检测到 LICENSE 文件。")
+
+    def _open_github(self):
+        """打开 GitHub 仓库页面（中文说明）"""
+        url = "https://github.com/sxcvicky/qianting-music"
+        QDesktopServices.openUrl(QUrl(url))
 
 
 class SettingsDialog(QDialog):
